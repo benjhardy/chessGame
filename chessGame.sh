@@ -42,7 +42,7 @@ randomSquare () {
 }
 num2x () {
     num=$1
-    xxx=([1]=a [2]=b [3]=c [4]=d [5]=e [6]=f [7]=g [8]=h)
+    xxx=([1]=a [2]=b [3]=c [4]=d [5]=e [6]=f [7]=g [0]=h)
     xx=$(($num%8))
     x=${xxx[xx]}
     echo $x
@@ -199,10 +199,8 @@ while [[ "$flag" -eq 1 ]]
 do
 
     num=$(randomSquare)
-    # echo $num
     x=$(num2x $num)
     y=$(num2y $num)
-    # echo $x $y
     colNum=$(num2xxx $x)
     printBoard $colNum $y
 
@@ -227,8 +225,6 @@ do
         flag=1
 
     fi
-
-
 
 
 done
