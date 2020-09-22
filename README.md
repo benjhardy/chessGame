@@ -6,7 +6,7 @@ Quiz yourself on algebraic notation
 
 Run `./chessGame.sh` after downloading
 
-![Game Layout](//examples/example_small.JPG)
+![Game Layout](/examples/example_small.JPG)
 
 # More to come
 
