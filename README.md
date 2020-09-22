@@ -6,7 +6,7 @@ Quiz yourself on algebraic notation
 
 Run `./chessGame.sh` after downloading
 
-![Game Layout](https://octodex.github.com/benjhardy/chessGame/examples/example.JPG)
+![Game Layout](https://github.com/benjhardy/chessGame/tree/master/examples/example.JPG)
 
 # More to come
 
