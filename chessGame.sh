@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+#
+# Benjamin M. Hardy 2020-09-22
 
 # Functions
 lightEdge () {
