@@ -188,7 +188,7 @@ printBoard () {
 # The Game
 echo Welcome to the Chess-Board Quiz-Game
 echo ------------------------------------
-echo Insert Random Art Here...
+./chessGameArt.sh
 echo "Enter 'quit' to quit!"
 echo "what square is this? ('quit' to quit)"
 echo ____________________________________________________________________________
@@ -228,5 +228,3 @@ do
 
 
 done
-
-printBoard 8 8
