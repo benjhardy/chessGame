@@ -58,6 +58,30 @@ num2xxx () {
         fi; 
     done;
 }
+convertX () {
+    # a,b,c,d,e,f,g,h
+    l=([1]=a [2]=b [3]=c [4]=d [5]=e [6]=f [7]=g [8]=h)
+    d=([1]=h [2]=g [3]=f [4]=e [5]=d [6]=c [7]=b [8]=a)
+
+    for x in {1..8}
+    do
+        if [[ $1 = ${l[x]} ]]; then
+        echo ${d[x]}
+        return
+        fi
+    done
+}
+convertY () {
+    # convert 1 - 8 , 2 - 7 , 3 - 6 , 4 - 5 , 5 - 4 , 6 - 3 , 7 - 2 , 8 - 1
+    l=([1]=8 [2]=7 [3]=6 [4]=5 [5]=4 [6]=3 [7]=2 [8]=1)
+    for x in {1..8}
+    do
+        if [[ $1 = $x ]]; then
+        echo ${l[x]}
+        return
+        fi
+    done
+}
 num2y () {
     num=$1
     y=$((9 - ($num+8-1)/8 ))
@@ -164,12 +188,17 @@ printRow () {
 printBoard () {
     colNum=$1
     y=$2
+    side=$3
     # start making the board...
-    darkEdge
+    if [ "$side" = "black" ]; then
+        lightEdge
+    else
+        darkEdge
+    fi
     edge
     for i in {1..8}
     do    
-        # this will change when I flip the board
+        # this wont change when I flip the board!
         if [[ $(($i%2)) -eq 0 ]]; then color=light; else color=dark; fi
         
         # got to be a better way but I know this works haha
@@ -180,7 +209,12 @@ printBoard () {
         printRow $color $colNum $flag
         
     done
-    lightEdge
+    if [ "$side" = "black" ]; then
+        darkEdge
+    else
+        lightEdge
+    fi
+    
 }
 
 
@@ -190,6 +224,9 @@ echo Welcome to the Chess-Board Quiz-Game
 echo ------------------------------------
 ./chessGameArt.sh
 echo "Enter 'quit' to quit!"
+echo "Choose a side! ('black' or 'white')"
+read
+side=${REPLY}
 echo "what square is this? ('quit' to quit)"
 echo ____________________________________________________________________________
 
@@ -199,11 +236,24 @@ while [[ "$flag" -eq 1 ]]
 do
 
     num=$(randomSquare)
+    # default light squares...
     x=$(num2x $num)
     y=$(num2y $num)
     colNum=$(num2xxx $x)
-    printBoard $colNum $y
 
+    # print it
+    printBoard $colNum $y $side
+    # if from black piece's perspective:
+    if [ "$side" = "black" ]; then
+       
+        # just convert x,y
+        tx=$(convertX $x)
+        ty=$(convertY $y)
+        x=$tx
+        y=$ty
+    fi
+
+    # user enters answer:
     read
     ans=${REPLY}
     echo $ans
@@ -220,7 +270,8 @@ do
         flag=0
         
     else
-        echo not quite, try again...
+        echo not quite,
+        echo "the answer was $x$y"
         echo "Enter 'quit' to quit!"
         flag=1
 
